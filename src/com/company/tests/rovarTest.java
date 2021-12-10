@@ -10,11 +10,12 @@ class rovarTest {
 
     @BeforeEach
     void setUp() {
-        System.out.println("new test");
+        System.out.print("new test - ");
     }
 
     @Test
     void enrov() {
+        System.out.println("enröv");
         rovar r = new rovar();
         //Test null input
         String testOne = r.enrov(null);
@@ -25,23 +26,11 @@ class rovarTest {
         assertEquals("",testTwo);
 
         //Test non-empty-string
-        String testThree = r.enrov("rovar");
-        assertEquals("rorovovaror",testThree);
-
-        testThree = r.enrov("malmö");
-        assertEquals("momalolmomö",testThree);
-
-        testThree = r.enrov("OorDning");
-        assertEquals("OororDODnoninongog",testThree);
-
-        testThree = r.enrov("#hej!");
+        String testThree = r.enrov("#hej!");
         assertEquals("#hohejoj!",testThree);
 
-        testThree = r.enrov("#hej!");
-        assertEquals("#hohejoj!",testThree);
-
-        testThree = r.enrov("072 712 49 46");
-        assertEquals("072 712 49 46",testThree);
+        testThree = r.enrov("0123456789");
+        assertEquals("0123456789",testThree);
 
         testThree = r.enrov("abcdefghijklmnopqrstuvwxyzåäö");
         assertEquals("abobcocdodefofgoghohijojkoklolmomnonopopqoqrorsostotuvovwowxoxyzozåäö",testThree);
@@ -55,5 +44,30 @@ class rovarTest {
 
     @Test
     void derov() {
+        System.out.println("deröv");
+        rovar r = new rovar();
+        //Test null input
+        String testOne = r.derov(null);
+        assertEquals(null,testOne);
+
+        //Test empty-string
+        String testTwo = r.derov("");
+        assertEquals("",testTwo);
+
+        //Test non-empty-string
+        String testThree = r.derov("#hohejoj!");
+        assertEquals("#hej!",testThree);
+
+        testThree = r.derov("0123456789");
+        assertEquals("0123456789",testThree);
+
+        testThree = r.derov("abobcocdodefofgoghohijojkoklolmomnonopopqoqrorsostotuvovwowxoxyzozåäö");
+        assertEquals("abcdefghijklmnopqrstuvwxyzåäö",testThree);
+
+        testThree = r.derov("ABOBCOCDODEFOFGOGHOHIJOJKOKLOLMOMNONOPOPQOQRORSOSTOTUVOVWOWXOXYZOZÅÄÖ");
+        assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ",testThree);
+
+        testThree = r.derov("ÖdodlolorornonasosLOLivov 23?");
+        assertEquals("ÖdlornasLiv 23?",testThree);
     }
 }
