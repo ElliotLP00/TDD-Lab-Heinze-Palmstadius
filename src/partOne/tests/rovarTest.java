@@ -1,6 +1,6 @@
-package com.company.tests;
+package partOne.tests;
 
-import com.company.rovar;
+import partOne.rovar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
