@@ -1,4 +1,4 @@
-package partTwo;
+package partTwo.clock;
 
 public enum states {
     CHANGE_DATE,

@@ -1,6 +1,6 @@
-package partTwo;
+package partTwo.clock;
 
-public class clock {
+public class Clock {
     public String changeMode(){
         return null;
     }
