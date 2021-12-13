@@ -9,10 +9,10 @@ public class Clock {
         switch(state){
             case DISPLAY_TIME:
                     state = states.DISPLAY_DATE;
-                    return theTime.showTime();
+                    return theDate.showDate();
             case DISPLAY_DATE:
                     state = states.DISPLAY_TIME;
-                    return theDate.showDate();
+                    return theTime.showTime();
             default:
                 throw new IllegalStateException("Unexpected value: " + state);
         }

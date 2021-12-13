@@ -20,15 +20,12 @@ class clockTest {
         Clock clock = new Clock();
         assertEquals(clock.state,states.DISPLAY_TIME);
         Date date = new Date();
-        int year = date.getYear() + 1900;
-        String dateString = year + "-" + (date.getMonth()+1) + "-" + date.getDate();
         String returnValue = clock.changeMode();
-        assertEquals(dateString,returnValue);
+        assertEquals("2000-01-01",returnValue);
         assertEquals(clock.state,states.DISPLAY_DATE);
 
         returnValue = clock.changeMode();
-        String timeStirng = getTime();
-        assertEquals(timeStirng,returnValue);
+        assertEquals("00:00:00",returnValue);
         assertEquals(clock.state,states.DISPLAY_TIME);
     }
 
@@ -52,7 +49,7 @@ class clockTest {
         Clock clock = new Clock();
         clock.ready();
         assertEquals(clock.state,states.CHANGE_TIME);
-        String returnValue = clock.set(12,27,05);
+        String returnValue = clock.set(12,27,5);
         assertEquals("12:27:05",returnValue);
         assertEquals(clock.state,states.DISPLAY_TIME);
         clock = new Clock();
@@ -62,23 +59,31 @@ class clockTest {
         returnValue = clock.set(2011,11,12);
         assertEquals("2011-11-12",returnValue);
         assertEquals(clock.state,states.DISPLAY_DATE);
+
+        testBoundaries();
     }
 
-    private String getTime(){
-        Date date = new Date();
-        String time = date.getHours()+":";
+    void testBoundaries(){
+        Clock clock = new Clock();
+        clock.ready();
+        assertEquals(clock.state,states.CHANGE_TIME);
+        //Fråga mange ang 99 som return value
+        /** time min value test*/
+        String returnValue = clock.set(-1,-1,-1);
+        assertEquals("99:99:99",returnValue);
+        /** time max value test*/
+        clock.ready();
+        returnValue = clock.set(25,60,60);
+        assertEquals("99:99:99",returnValue);
 
-        int min = date.getMinutes();
-        if(min < 10) {
-            time += "0";
-        }
-        time+=min+":";
-
-        int sec = date.getSeconds();
-        if(sec < 10) {
-            time += "0";
-        }
-        time+=sec;
-        return time;
+        clock.changeMode();
+        /** date min value test*/
+        clock.ready();
+        returnValue = clock.set(1999,0,0);
+        assertEquals("9999-99-99",returnValue);
+        /** date max value test*/
+        clock.ready();
+        returnValue = clock.set(2101,13,31);
+        assertEquals("9999-99-99",returnValue);
     }
 }
